@@ -1,7 +1,7 @@
 import React from "react";
 import check from "../images/icon-check.svg";
 
-const Todo = ({ text, todo, todos, setTodos }) => {
+const Todo = ({ text, todo, todos, setTodos, provided, snapshot }) => {
     function deleteHandler() {
         setTodos(todos.filter((el) => el.id !== todo.id));
     }
@@ -18,7 +18,14 @@ const Todo = ({ text, todo, todos, setTodos }) => {
     }
 
     return (
-        <div className={`todo row ${todo.completed ? "completed" : ""}`}>
+        <div
+            className={`todo row ${todo.completed ? "completed" : ""} ${
+                snapshot.isDragging && "dragging"
+            }`}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+        >
             <div
                 className={`check_box ${todo.completed ? "" : "check_style"}`}
                 onClick={completeHandler}

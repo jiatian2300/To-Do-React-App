@@ -189,8 +189,6 @@ p {
 
 .todo-list .todo {
     border-bottom: 1px var(--text-acc) solid;
-    cursor: -webkit-grab;
-    cursor: grab;
 }
 
 .todo-list .todo .check_style {
@@ -214,6 +212,11 @@ p {
 
 .todo-list svg path {
     fill: var(--cross);
+}
+
+.dragging {
+    border-radius: 5px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .todo-list .details {
