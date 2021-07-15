@@ -57,6 +57,7 @@ body {
 .hero_img {
     width: 100%;
     height: 53vw;
+    max-height: 200px;
     background-size: cover;
     position: absolute;
     top: 0;

@@ -7,6 +7,7 @@ const TodoList = ({ todos, setTodos, setFilter, filteredTodos }) => {
     const [left, setLeft] = useState(0);
     const [activeFilter, setActiveFilter] = useState([true, false, false]);
 
+    // update the number of todos left on the list
     useEffect(() => {
         setLeft(todos.length);
     }, [todos.length]);
