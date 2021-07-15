@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/To-Do-React-App/static/css/main.36abfd96.chunk.css",
+    "main.css": "/To-Do-React-App/static/css/main.683fa4f7.chunk.css",
     "main.js": "/To-Do-React-App/static/js/main.80cbb74a.chunk.js",
     "main.js.map": "/To-Do-React-App/static/js/main.80cbb74a.chunk.js.map",
     "runtime-main.js": "/To-Do-React-App/static/js/runtime-main.262f4b05.js",
@@ -10,7 +10,7 @@
     "static/js/3.abefc928.chunk.js": "/To-Do-React-App/static/js/3.abefc928.chunk.js",
     "static/js/3.abefc928.chunk.js.map": "/To-Do-React-App/static/js/3.abefc928.chunk.js.map",
     "index.html": "/To-Do-React-App/index.html",
-    "static/css/main.36abfd96.chunk.css.map": "/To-Do-React-App/static/css/main.36abfd96.chunk.css.map",
+    "static/css/main.683fa4f7.chunk.css.map": "/To-Do-React-App/static/css/main.683fa4f7.chunk.css.map",
     "static/js/2.2dec1152.chunk.js.LICENSE.txt": "/To-Do-React-App/static/js/2.2dec1152.chunk.js.LICENSE.txt",
     "static/media/App.css": "/To-Do-React-App/static/media/icon-sun.910b1f9a.svg",
     "static/media/icon-check.a8fb15d0.svg": "/To-Do-React-App/static/media/icon-check.a8fb15d0.svg"
@@ -18,7 +18,7 @@
   "entrypoints": [
     "static/js/runtime-main.262f4b05.js",
     "static/js/2.2dec1152.chunk.js",
-    "static/css/main.36abfd96.chunk.css",
+    "static/css/main.683fa4f7.chunk.css",
     "static/js/main.80cbb74a.chunk.js"
   ]
 }
