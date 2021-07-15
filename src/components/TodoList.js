@@ -3,9 +3,9 @@ import { useEffect } from "react";
 import Todo from "./Todo";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-const TodoList = ({ todos, setTodos, setFilter, filteredTodos }) => {
+const TodoList = ({ todos, setTodos, filter, setFilter, filteredTodos }) => {
     const [left, setLeft] = useState(0);
-    const [activeFilter, setActiveFilter] = useState([true, false, false]);
+    //const [activeFilter, setActiveFilter] = useState("All");
 
     // update the number of todos left on the list
     useEffect(() => {
@@ -14,17 +14,6 @@ const TodoList = ({ todos, setTodos, setFilter, filteredTodos }) => {
 
     function changeFilter(e) {
         setFilter(e.target.innerHTML);
-        switch (e.target.innerHTML) {
-            case "Active":
-                setActiveFilter([false, true, false]);
-                break;
-            case "Completed":
-                setActiveFilter([false, false, true]);
-                break;
-            default:
-                setActiveFilter([true, false, false]);
-                break;
-        }
     }
 
     function clearCompleted() {
@@ -81,13 +70,17 @@ const TodoList = ({ todos, setTodos, setFilter, filteredTodos }) => {
                 </Droppable>
             </DragDropContext>
             <div className="filters" onClick={changeFilter}>
-                <h2 className={`${activeFilter[0] ? "active_filter" : ""}`}>
+                <h2 className={`${filter === "All" ? "active_filter" : ""}`}>
                     All
                 </h2>
-                <h2 className={`${activeFilter[1] ? "active_filter" : ""}`}>
+                <h2 className={`${filter === "Active" ? "active_filter" : ""}`}>
                     Active
                 </h2>
-                <h2 className={`${activeFilter[2] ? "active_filter" : ""}`}>
+                <h2
+                    className={`${
+                        filter === "Completed" ? "active_filter" : ""
+                    }`}
+                >
                     Completed
                 </h2>
             </div>

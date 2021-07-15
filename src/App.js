@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import TodoList from "./components/TodoList";
 import Form from "./components/Form";
 import { useEffect } from "react";
+import firebase from "./util/firebase";
 
 function App() {
     const [theme, setTheme] = useState("light");
@@ -11,27 +12,47 @@ function App() {
     const [filteredTodos, setFilteredTodos] = useState([]);
     const [filter, setFilter] = useState("All");
 
-    // Runs once on page load: Get theme and todo list from local storage
-    useEffect(() => {
-        function getLocalStorage() {
-            if (localStorage.getItem("todos") === null) {
-                localStorage.setItem("todos", JSON.stringify([]));
-            } else {
-                let local = JSON.parse(localStorage.getItem("todos"));
-                setTodos(local);
-            }
+    const DBref = firebase.database().ref("Todo");
+    const [firstLoad, setFirstLoad] = useState(true);
 
+    // Runs once on page load: Get theme from local storage and todo list from Firebase
+    useEffect(() => {
+        function getTodoFromFirebase() {
+            var temp = [];
+            DBref.once("value", (snapshot) => {
+                snapshot.forEach((data) => {
+                    const info = data.val();
+                    temp.push({
+                        text: info.text,
+                        completed: info.completed,
+                        id: info.id,
+                    });
+                });
+                setFirstLoad(false);
+                setTodos(temp);
+            });
+        }
+
+        function getTheme() {
             if (localStorage.getItem("theme") === null) {
                 localStorage.setItem("theme", "light");
             } else {
                 setTheme(localStorage.getItem("theme"));
             }
         }
-        getLocalStorage();
+
+        getTodoFromFirebase();
+        getTheme();
     }, []);
 
+    // exports.dbTest = functions.database
+    //     .ref("/Todo")
+    //     .onUpdate((change, context) => {
+    //         console.log(change);
+    //     });
+
+    // Filter the todo list whenever the filter is changed or when a new todo is added
     useEffect(() => {
-        // Filter the todo list whenever the filter is changed or when a new todo is added
         function filterHandler() {
             switch (filter) {
                 case "Completed":
@@ -50,15 +71,26 @@ function App() {
             }
         }
 
-        // save the updated todo list and theme to local storage when changed
-        function saveToLocalStorage() {
-            localStorage.setItem("todos", JSON.stringify(todos));
-            localStorage.setItem("theme", theme);
+        filterHandler();
+    }, [filter, todos]);
+
+    useEffect(() => {
+        function saveTodoToFirebase() {
+            if (firstLoad === true) return;
+            DBref.remove();
+            todos.map((todo) => DBref.push(todo));
         }
 
-        filterHandler();
-        saveToLocalStorage();
-    }, [todos, filter, theme]);
+        saveTodoToFirebase();
+    }, [todos]);
+
+    // save the updated theme to local storage when changed
+    useEffect(() => {
+        function saveTheme() {
+            localStorage.setItem("theme", theme);
+        }
+        saveTheme();
+    }, [theme]);
 
     function changeTheme() {
         if (theme === "light") {
@@ -82,6 +114,7 @@ function App() {
                 <TodoList
                     todos={todos}
                     setTodos={setTodos}
+                    filter={filter}
                     setFilter={setFilter}
                     filteredTodos={filteredTodos}
                 />
